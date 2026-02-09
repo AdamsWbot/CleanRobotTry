@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /mnt/hgfs/share/bit_ws/install/setup.sh
