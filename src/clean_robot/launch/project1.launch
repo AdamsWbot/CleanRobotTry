@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="clean_robot" type="arm_joint_publisher.py" name="arm_joint_publisher" output="screen" />
+  <node pkg="clean_robot" type="arm_state_subscriber.py" name="arm_state_subscriber" output="screen" />
+</launch>
