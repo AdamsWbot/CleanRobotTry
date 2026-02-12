@@ -1,0 +1,7 @@
+#请求：爪部目标开合角度
+float32 gripper_angle
+---
+#响应：执行结果+当前实际角度+结果说明
+bool result                 #ture=执行成功，false=执行失败
+float32 current_angle       #成功为目标角度，失败为上一帧有效角度
+string info                 #结果说明（角度合法，执行成功/执行失败—角度超出范围/角度变化过小）
