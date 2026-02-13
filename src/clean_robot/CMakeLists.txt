@@ -157,8 +157,8 @@ include_directories(
 # )
 
 catkin_install_python(PROGRAMS
-  scripts/gripper_control_server.py
-  scripts/gripper_control_client.py
+  src/gripper_server.py
+  src/gripper_client.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

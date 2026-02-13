@@ -28,9 +28,7 @@ class ArmJointPublisher:
         self.rate = rospy.Rate(config.PUB_RATE)
         # 当前角度（rad）
         self.positions = list(config.ARM_INITIAL_POSITION)
-        # Lock for thread-safe updates
         self.lock = threading.Lock()
-        # Start input thread
         self.input_thread = threading.Thread(target=self._input_loop, daemon=True)
         self.input_thread.start()
         rospy.loginfo("[publisher] 启动，发布频率: {} Hz".format(config.PUB_RATE))
@@ -66,7 +64,6 @@ class ArmJointPublisher:
                         print("角度解析出错，请输入数字")
                         continue
                     rads = [math.radians(d) for d in degs]
-                    # validate each
                     ok = True
                     for i, r in enumerate(rads):
                         if not self._validate_rad(i, r):
@@ -110,7 +107,6 @@ class ArmJointPublisher:
             js.name = list(config.ARM_JOINT_NAMES)
             with self.lock:
                 js.position = list(self.positions)
-            # publish
             self.pub.publish(js)
             # debug
             if config.DEBUG_MODE:

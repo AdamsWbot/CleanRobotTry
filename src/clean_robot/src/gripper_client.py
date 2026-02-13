@@ -56,7 +56,7 @@ def gripper_client():
             
             # 4. 规范构造服务请求（
             req = GripperControlRequest()
-            req.target_angle = target_angle  # 注意：需与你的GripperControl.srv中请求字段名一致
+            req.gripper_angle = target_angle  # 注意：需与你的GripperControl.srv中请求字段名一致
             
             # 5. 调用服务并处理响应
             try:
