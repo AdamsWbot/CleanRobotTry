@@ -14,9 +14,9 @@ class GripperControlClient:
         self.current_angle = 0.0
         
         # 1. 等待服务端启动
-        rospy.loginfo("等待爪子控制服务 /gripper/control 启动...")
-        rospy.wait_for_service('/gripper/control')
-        self.client = rospy.ServiceProxy('/gripper/control', GripperControl)
+        rospy.loginfo("等待爪子控制服务 gripper_control 启动...")
+        rospy.wait_for_service('gripper_control')
+        self.client = rospy.ServiceProxy('gripper_control', GripperControl)
         rospy.loginfo("服务连接成功！")
 
     def set_angle(self, angle):
@@ -64,3 +64,4 @@ class GripperControlClient:
         返回: 当前角度 (float)
         """
         return self.current_angle
+
