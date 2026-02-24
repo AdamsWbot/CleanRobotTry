@@ -23,6 +23,7 @@ class GripperControlClient:
         """
         设置爪子角度
         参数 angle: 目标角度 (float)
+        返回值: 成功返回 True，失败返回 False
         """
         # --- 1. 角度范围限制 (要求 0-90度) ---
         if angle < 0:
@@ -36,27 +37,29 @@ class GripperControlClient:
         angle_diff = abs(angle - self.current_angle)
         if angle_diff < 5.0:
             rospy.loginfo(f"防抖拦截：角度变化太小 ({angle_diff:.1f}度)，不执行动作。")
-            return  # 直接返回，不调用服务
-
+            return False  
+       
         # --- 3. 调用服务 ---
         try:
             # 构造请求
             req = GripperControlRequest()
-            req.target_angle = angle
-            req.current_angle = self.current_angle  
+            req.gripper_angle = angle 
 
             # 发送请求并接收响应
             resp = self.client(req)
             
-            # --- 4. 更新状态 ---
-            if resp.success:
+            # --- 4. 更新状态并返回结果 ---
+            if resp.result: 
                 self.current_angle = angle
                 rospy.loginfo(f"成功设置角度: {angle} 度")
+                return True
             else:
-                rospy.logerr(f"服务端执行失败: {resp.message}")
+                rospy.logerr(f"服务端执行失败: {resp.info}")  
+                return False
 
         except rospy.ServiceException as e:
             rospy.logerr(f"服务调用失败: {e}")
+            return False
 
     def get_current_deg(self):
         """
@@ -64,4 +67,3 @@ class GripperControlClient:
         返回: 当前角度 (float)
         """
         return self.current_angle
-
