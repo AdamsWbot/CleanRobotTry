@@ -65,6 +65,16 @@ POUR_TILT_POSITION = [
 ]
 POUR_TILT_DURATION = 1.0
 
+# 项目4
+
+# 是否执行餐余垃圾阶段
+RUN_FOOD_WASTE = True
+
+# 是否执行餐具清理阶段
+RUN_TABLEWARE_CLEAN = True
+
+# 单个动作最大允许时间（秒）
+ACTION_TIMEOUT = 3.0
 
 PRINT_FORMAT = "joint{index}: {angle:.3f} rad, 差值: {diff:.3f} rad"
 DEBUG_MODE = True
