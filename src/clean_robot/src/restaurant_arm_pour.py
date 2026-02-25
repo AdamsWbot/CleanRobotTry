@@ -23,8 +23,8 @@ def emergency_reset(arm, gripper):
         raise SystemExit(1)  # 直接退出
 
 def main():
-    # 初始化ROS节点（固定名称，便于调试）
-    rospy.init_node('restaurant_arm_pour', anonymous=False)
+    # 初始化ROS节点
+    rospy.init_node('restaurant_arm_pour')
 
     # 创建机械臂和爪部控制对象
     arm = ArmControl()
@@ -36,40 +36,44 @@ def main():
         if not gripper.set_angle(90):
             raise RuntimeError("爪部设置角度失败")
         current_gripper = gripper.get_current_deg()
+        rospy.sleep(1.0)  # 耗时1.0s
         rospy.loginfo("步骤1：当前爪部角度 %.1f°", current_gripper)
-        rospy.sleep(1.0)
+        
 
         # ---------- 步骤2：机械臂抬升 ----------
         rospy.loginfo("步骤2：机械臂抬升中")
         if not arm.move_to(0, 60, 90, 0, 0):
             raise RuntimeError("机械臂抬升失败")
         arm_deg = arm.get_current_deg()
+        rospy.sleep(2.0)  # 耗时2.0s
         rospy.loginfo("步骤2：joint2当前角度 %.1f°，joint3当前角度 %.1f°",
                       arm_deg[1], arm_deg[2])
-        rospy.sleep(2.0)
+        
 
         # ---------- 步骤3：机械臂旋转至倾倒角度 ----------
         rospy.loginfo("步骤3：机械臂旋转至倾倒角度")
         if not arm.move_to(0, 60, 90, 150, 0):
             raise RuntimeError("机械臂旋转失败")
         arm_deg = arm.get_current_deg()
+        rospy.sleep(1.0)  # 耗时1.0s
         rospy.loginfo("步骤3：joint4当前角度 %.1f°", arm_deg[3])
-        rospy.sleep(1.0)  # 耗时1s
-
+        
         # ---------- 步骤4：爪部松开至0° ----------
         rospy.loginfo("步骤4：爪部松开至0°")
         if not gripper.set_angle(0):
             raise RuntimeError("爪部松开失败")
         current_gripper = gripper.get_current_deg()
-        rospy.loginfo("步骤4：当前爪部角度 %.1f°", current_gripper)
         rospy.sleep(0.5)  # 耗时0.5s
+        rospy.loginfo("步骤4：当前爪部角度 %.1f°", current_gripper)
+        
 
         # ---------- 步骤5：机械臂复位 ----------
         rospy.loginfo("步骤5：机械臂复位")
         if not arm.reset():
             raise RuntimeError("机械臂复位失败")
+        rospy.sleep(2.0)  # 耗时2.0s
         rospy.loginfo("步骤5：所有关节已复位至0°")
-        rospy.sleep(2.0)
+        
 
         # ---------- 步骤6：爪部保持0° ----------
         rospy.loginfo("步骤6：爪部保持0°，动作结束")
