@@ -1,2 +1,2 @@
 - setup-file:
-    local-name: /mnt/hgfs/share/bit_ws/install/setup.sh
+    local-name: /home/sword/CleanRobotTry/install/setup.sh

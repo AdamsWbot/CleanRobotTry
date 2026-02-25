@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /mnt/hgfs/share/bit_ws/src
+CMAKE_SOURCE_DIR = /home/sword/CleanRobotTry/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /mnt/hgfs/share/bit_ws/build
+CMAKE_BINARY_DIR = /home/sword/CleanRobotTry/build
 
 # Utility rule file for tests.
 
@@ -67,6 +67,6 @@ CMakeFiles/tests.dir/clean:
 .PHONY : CMakeFiles/tests.dir/clean
 
 CMakeFiles/tests.dir/depend:
-	cd /mnt/hgfs/share/bit_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/hgfs/share/bit_ws/src /mnt/hgfs/share/bit_ws/src /mnt/hgfs/share/bit_ws/build /mnt/hgfs/share/bit_ws/build /mnt/hgfs/share/bit_ws/build/CMakeFiles/tests.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/sword/CleanRobotTry/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/sword/CleanRobotTry/src /home/sword/CleanRobotTry/src /home/sword/CleanRobotTry/build /home/sword/CleanRobotTry/build /home/sword/CleanRobotTry/build/CMakeFiles/tests.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/tests.dir/depend
 

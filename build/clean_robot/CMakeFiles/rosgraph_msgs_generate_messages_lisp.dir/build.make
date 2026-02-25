@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /mnt/hgfs/share/bit_ws/src
+CMAKE_SOURCE_DIR = /home/sword/CleanRobotTry/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /mnt/hgfs/share/bit_ws/build
+CMAKE_BINARY_DIR = /home/sword/CleanRobotTry/build
 
 # Utility rule file for rosgraph_msgs_generate_messages_lisp.
 
@@ -63,10 +63,10 @@ clean_robot/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build: rosgraph_
 .PHONY : clean_robot/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/build
 
 clean_robot/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/clean:
-	cd /mnt/hgfs/share/bit_ws/build/clean_robot && $(CMAKE_COMMAND) -P CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/cmake_clean.cmake
+	cd /home/sword/CleanRobotTry/build/clean_robot && $(CMAKE_COMMAND) -P CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/cmake_clean.cmake
 .PHONY : clean_robot/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/clean
 
 clean_robot/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/depend:
-	cd /mnt/hgfs/share/bit_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /mnt/hgfs/share/bit_ws/src /mnt/hgfs/share/bit_ws/src/clean_robot /mnt/hgfs/share/bit_ws/build /mnt/hgfs/share/bit_ws/build/clean_robot /mnt/hgfs/share/bit_ws/build/clean_robot/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/sword/CleanRobotTry/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/sword/CleanRobotTry/src /home/sword/CleanRobotTry/src/clean_robot /home/sword/CleanRobotTry/build /home/sword/CleanRobotTry/build/clean_robot /home/sword/CleanRobotTry/build/clean_robot/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : clean_robot/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir/depend
 

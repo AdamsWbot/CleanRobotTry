@@ -1,2 +1,2 @@
 clean_robot
--DCATKIN_DEVEL_PREFIX=/mnt/hgfs/share/bit_ws/devel -DCMAKE_INSTALL_PREFIX=/mnt/hgfs/share/bit_ws/install -G Unix Makefiles
+-DCATKIN_DEVEL_PREFIX=/home/sword/CleanRobotTry/devel -DCMAKE_INSTALL_PREFIX=/home/sword/CleanRobotTry/install -G Unix Makefiles

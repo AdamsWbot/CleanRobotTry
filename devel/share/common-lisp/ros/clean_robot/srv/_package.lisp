@@ -1,0 +1,10 @@
+(cl:defpackage clean_robot-srv
+  (:use )
+  (:export
+   "GRIPPERCONTROL"
+   "<GRIPPERCONTROL-REQUEST>"
+   "GRIPPERCONTROL-REQUEST"
+   "<GRIPPERCONTROL-RESPONSE>"
+   "GRIPPERCONTROL-RESPONSE"
+  ))
+

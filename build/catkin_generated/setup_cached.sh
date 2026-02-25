@@ -7,8 +7,7 @@
 # new environment variables
 
 # modified environment variables
-export CMAKE_PREFIX_PATH="/mnt/hgfs/share/bit_ws/devel:$CMAKE_PREFIX_PATH"
-export LD_LIBRARY_PATH="/mnt/hgfs/share/bit_ws/devel/lib:$LD_LIBRARY_PATH"
-export PWD='/mnt/hgfs/share/bit_ws/build'
-export ROSLISP_PACKAGE_DIRECTORIES='/mnt/hgfs/share/bit_ws/devel/share/common-lisp'
-export ROS_PACKAGE_PATH="/mnt/hgfs/share/bit_ws/src:$ROS_PACKAGE_PATH"
+export LD_LIBRARY_PATH='/opt/ros/noetic/lib'
+export PKG_CONFIG_PATH='/opt/ros/noetic/lib/pkgconfig'
+export PWD='/home/sword/CleanRobotTry/build'
+export ROS_PACKAGE_PATH='/home/sword/CleanRobotTry/src:/opt/ros/noetic/share'

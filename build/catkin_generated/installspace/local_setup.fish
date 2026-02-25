@@ -5,7 +5,7 @@
 # or fall back to the destination set at configure time
 
 if test -z $_CATKIN_SETUP_DIR
-    set _CATKIN_SETUP_DIR /mnt/hgfs/share/bit_ws/install
+    set _CATKIN_SETUP_DIR /home/sword/CleanRobotTry/install
 end
 
 set CATKIN_SETUP_UTIL_ARGS "--extend --local"

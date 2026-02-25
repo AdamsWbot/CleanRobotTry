@@ -1,8 +1,8 @@
-# Install script for directory: /mnt/hgfs/share/bit_ws/src/clean_robot
+# Install script for directory: /home/sword/CleanRobotTry/src/clean_robot
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/mnt/hgfs/share/bit_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/sword/CleanRobotTry/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,17 +38,61 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/mnt/hgfs/share/bit_ws/build/clean_robot/catkin_generated/installspace/clean_robot.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/clean_robot/srv" TYPE FILE FILES "/home/sword/CleanRobotTry/src/clean_robot/srv/GripperControl.srv")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/clean_robot/cmake" TYPE FILE FILES "/home/sword/CleanRobotTry/build/clean_robot/catkin_generated/installspace/clean_robot-msg-paths.cmake")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/include" TYPE DIRECTORY FILES "/home/sword/CleanRobotTry/devel/include/clean_robot")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/roseus/ros" TYPE DIRECTORY FILES "/home/sword/CleanRobotTry/devel/share/roseus/ros/clean_robot")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/common-lisp/ros" TYPE DIRECTORY FILES "/home/sword/CleanRobotTry/devel/share/common-lisp/ros/clean_robot")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/gennodejs/ros" TYPE DIRECTORY FILES "/home/sword/CleanRobotTry/devel/share/gennodejs/ros/clean_robot")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  execute_process(COMMAND "/usr/bin/python3" -m compileall "/home/sword/CleanRobotTry/devel/lib/python3/dist-packages/clean_robot")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/python3/dist-packages" TYPE DIRECTORY FILES "/home/sword/CleanRobotTry/devel/lib/python3/dist-packages/clean_robot")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/sword/CleanRobotTry/build/clean_robot/catkin_generated/installspace/clean_robot.pc")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/clean_robot/cmake" TYPE FILE FILES "/home/sword/CleanRobotTry/build/clean_robot/catkin_generated/installspace/clean_robot-msg-extras.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/clean_robot/cmake" TYPE FILE FILES
-    "/mnt/hgfs/share/bit_ws/build/clean_robot/catkin_generated/installspace/clean_robotConfig.cmake"
-    "/mnt/hgfs/share/bit_ws/build/clean_robot/catkin_generated/installspace/clean_robotConfig-version.cmake"
+    "/home/sword/CleanRobotTry/build/clean_robot/catkin_generated/installspace/clean_robotConfig.cmake"
+    "/home/sword/CleanRobotTry/build/clean_robot/catkin_generated/installspace/clean_robotConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/clean_robot" TYPE FILE FILES "/mnt/hgfs/share/bit_ws/src/clean_robot/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/clean_robot" TYPE FILE FILES "/home/sword/CleanRobotTry/src/clean_robot/package.xml")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/clean_robot" TYPE PROGRAM FILES "/home/sword/CleanRobotTry/build/clean_robot/catkin_generated/installspace/gripper_server.py")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/clean_robot" TYPE PROGRAM FILES "/home/sword/CleanRobotTry/build/clean_robot/catkin_generated/installspace/gripper_client.py")
 endif()
 
