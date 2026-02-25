@@ -37,7 +37,7 @@ def main():
             raise RuntimeError("爪部设置角度失败")
         current_gripper = gripper.get_current_deg()
         rospy.sleep(1.0)  # 耗时1.0s
-        rospy.loginfo("步骤1：当前爪部角度 %.1f°", current_gripper)
+        rospy.loginfo("步骤1：当前爪部角度 %.1f°，耗时1.0s", current_gripper)
         
 
         # ---------- 步骤2：机械臂抬升 ----------
@@ -46,7 +46,7 @@ def main():
             raise RuntimeError("机械臂抬升失败")
         arm_deg = arm.get_current_deg()
         rospy.sleep(2.0)  # 耗时2.0s
-        rospy.loginfo("步骤2：joint2当前角度 %.1f°，joint3当前角度 %.1f°",
+        rospy.loginfo("步骤2：joint2当前角度 %.1f°，joint3当前角度 %.1f°，耗时2.0s",
                       arm_deg[1], arm_deg[2])
         
 
@@ -56,7 +56,7 @@ def main():
             raise RuntimeError("机械臂旋转失败")
         arm_deg = arm.get_current_deg()
         rospy.sleep(1.0)  # 耗时1.0s
-        rospy.loginfo("步骤3：joint4当前角度 %.1f°", arm_deg[3])
+        rospy.loginfo("步骤3：joint4当前角度 %.1f°，耗时1.0s", arm_deg[3])
         
         # ---------- 步骤4：爪部松开至0° ----------
         rospy.loginfo("步骤4：爪部松开至0°")
@@ -64,7 +64,7 @@ def main():
             raise RuntimeError("爪部松开失败")
         current_gripper = gripper.get_current_deg()
         rospy.sleep(0.5)  # 耗时0.5s
-        rospy.loginfo("步骤4：当前爪部角度 %.1f°", current_gripper)
+        rospy.loginfo("步骤4：当前爪部角度 %.1f°，耗时0.5s", current_gripper)
         
 
         # ---------- 步骤5：机械臂复位 ----------
@@ -72,7 +72,7 @@ def main():
         if not arm.reset():
             raise RuntimeError("机械臂复位失败")
         rospy.sleep(2.0)  # 耗时2.0s
-        rospy.loginfo("步骤5：所有关节已复位至0°")
+        rospy.loginfo("步骤5：所有关节已复位至0°，耗时2.0s")
         
 
         # ---------- 步骤6：爪部保持0° ----------
