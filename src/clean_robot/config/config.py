@@ -65,6 +65,9 @@ POUR_TILT_POSITION = [
 ]
 POUR_TILT_DURATION = 1.0
 
+#复位时间
+RESET_DURATION = 2.0
+
 # 项目4
 
 # 是否执行餐余垃圾阶段
@@ -75,6 +78,18 @@ RUN_TABLEWARE_CLEAN = True
 
 # 单个动作最大允许时间（秒）
 ACTION_TIMEOUT = 3.0
+
+
+# 餐具数量和餐余垃圾数量（执行次数）
+TABLEWARE_COUNT = 2
+FOOD_WASTE_COUNT = 2
+
+# 项目4打印格式
+STEP_PRINT_FORMAT = (
+    "步骤{step}：{desc}完成 共耗时{duration:.1f}秒 "
+    "joint1:{j1:.1f}° joint2:{j2:.1f}° joint3:{j3:.1f}° joint4:{j4:.1f}° joint5:{j5:.1f}° "
+    "gripper:{gripper:.1f}°"
+)
 
 PRINT_FORMAT = "joint{index}: {angle:.3f} rad, 差值: {diff:.3f} rad"
 DEBUG_MODE = True
