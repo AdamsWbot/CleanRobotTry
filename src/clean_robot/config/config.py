@@ -70,6 +70,24 @@ RESET_DURATION = 2.0
 
 # 项目4
 
+# 机械臂抓取角度
+ARM_GRASP_POSITION = [
+    math.radians(30.0),
+    math.radians(45.0),
+    math.radians(30.0),
+    0.0,
+    0.0
+]
+
+# 机械臂抬升角度
+ARM_LIFT_POSITION = [
+    math.radians(30.0),
+    math.radians(45.0),
+    math.radians(30.0),
+    math.radians(120.0), 
+    0.0
+]
+
 # 是否执行餐余垃圾阶段
 RUN_FOOD_WASTE = True
 

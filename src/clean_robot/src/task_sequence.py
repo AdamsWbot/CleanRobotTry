@@ -21,7 +21,7 @@ class TaskSequence:
 
         rospy.loginfo("餐厅3D清洁任务开始")
 
-    # 打印状态（业务层）
+    # 打印状态
     def print_status(self, step, desc,duration):
         arm_angles = self.arm.get_current_deg()
         gripper_angle = self.gripper.get_current_deg()
@@ -49,7 +49,11 @@ class TaskSequence:
             # 步骤1：夹紧
             rospy.loginfo("步骤1：夹紧餐具，开始执行...")
             target_deg = math.degrees(config.GRIPPER_MAX_ANGLE)
-            res = eh.perform_action_with_timeout(self.gripper.set_angle, args=(target_deg,), expected_duration=1.0)
+
+            # 执行动作
+            self.gripper.set_angle(target_deg)
+            res = eh.check_timeout(expected_duration=1.0)
+            rospy.sleep(1.0)  # 耗时1.0s
             if not eh.handle_action_result(self.arm, self.gripper, res, "gripper close"):
                 return  # 失败 -> 终止整个任务
             self.print_status(1, "夹紧餐具",1.0)
@@ -61,10 +65,14 @@ class TaskSequence:
             if not ok:
                 eh.handle_out_of_range(self.arm, self.gripper, offending_index=idx, offending_value=raise_deg[idx])
                 return
-            res = eh.perform_action_with_timeout(self.arm.move_to, args=tuple(raise_deg), expected_duration=config.POUR_RAISE_DURATION)
+            
+            # 执行动作
+            self.arm.move_to(*raise_deg)
+            res = eh.check_timeout(expected_duration=2.0)
+            rospy.sleep(2.0)  # 耗时2.0s
             if not eh.handle_action_result(self.arm, self.gripper, res, "arm raise"):
                 return
-            self.print_status(2, "机械臂抬升",config.POUR_RAISE_DURATION)
+            self.print_status(2, "机械臂抬升",2.0)
 
             # 步骤3：倾倒 
             rospy.loginfo("步骤3：倾倒餐具，开始执行...")
@@ -74,27 +82,36 @@ class TaskSequence:
             if not ok:
                 eh.handle_out_of_range(self.arm, self.gripper, offending_index=idx, offending_value=tilt_deg[idx])
                 return
-            res = eh.perform_action_with_timeout(self.arm.move_to, args=tuple(tilt_deg), expected_duration=config.POUR_TILT_DURATION)
+            # 执行动作
+            self.arm.move_to(*tilt_deg)
+            res = eh.check_timeout(expected_duration=1.0)
+            rospy.sleep(1.0)  # 耗时1.0s
             if not eh.handle_action_result(self.arm, self.gripper, res, "arm tilt"):
                 return
-            self.print_status(3, "倾倒餐具",config.POUR_TILT_DURATION)
+            self.print_status(3, "倾倒餐具",1.0)
 
             # 步骤4：松开 
             rospy.loginfo("步骤4：松开餐具，开始执行...")
 
             target_deg = math.degrees(config.GRIPPER_MIN_ANGLE)
-            res = eh.perform_action_with_timeout(self.gripper.set_angle, args=(target_deg,), expected_duration=0.5)
+            # 执行动作
+            self.gripper.set_angle(target_deg)
+            res = eh.check_timeout(expected_duration=0.5)
+            rospy.sleep(0.5)  # 耗时0.5s
             if not eh.handle_action_result(self.arm, self.gripper, res, "gripper open"):
                 return
             self.print_status(4, "松开餐具",0.5)
 
             # 步骤5：复位 
             rospy.loginfo("步骤5：机械臂复位，开始执行...")
-
-            res = eh.perform_action_with_timeout(self.arm.reset, args=(), expected_duration=config.RESET_DURATION)
+            
+            # 执行动作
+            self.arm.reset()
+            res = eh.check_timeout(expected_duration=2.0)
+            rospy.sleep(2.0)  # 耗时2.0s
             if not eh.handle_action_result(self.arm, self.gripper, res, "arm reset"):
                 return
-            self.print_status(5, "机械臂复位",config.RESET_DURATION)
+            self.print_status(5, "机械臂复位",2.0)
 
 
     # 阶段2：餐余垃圾清理
@@ -104,6 +121,66 @@ class TaskSequence:
 
             rospy.loginfo(f"---- 清理餐余垃圾 {i+1} ----")
 
+            # 步骤1：机械臂调整至抓取角度
+            rospy.loginfo("步骤1：机械臂调整至抓取角度，开始执行...")
+            grasp_deg = [math.degrees(x) for x in config.ARM_GRASP_POSITION]
+            ok, msg, idx = eh.check_joint_limits_deg(grasp_deg)
+            if not ok:
+                eh.handle_out_of_range(self.arm, self.gripper, offending_index=idx, offending_value=grasp_deg[idx])
+                return
+            
+            # 执行动作
+            self.arm.move_to(*grasp_deg)
+            res = eh.check_timeout(expected_duration=2.0)
+            rospy.sleep(2.0)  # 耗时2.0s
+            if not eh.handle_action_result(self.arm, self.gripper, res, "arm grasp"):
+                return  # 失败 -> 终止整个任务
+            self.print_status(1, "机械臂调整至抓取角度",2.0)
+
+            # 步骤2：爪部闭合 
+            rospy.loginfo("步骤2：爪部闭合，开始执行...")
+            self.gripper.set_angle(70)
+            res = eh.check_timeout(expected_duration=1.0)
+            rospy.sleep(1.0)  # 耗时1.0s
+            if not eh.handle_action_result(self.arm, self.gripper, res, "gripper close"):
+                return
+            self.print_status(2, "爪部闭合",1.0)
+
+            # 步骤3：抬升 
+            rospy.loginfo("步骤3：机械臂抬升，开始执行...")
+            raise_deg = [math.degrees(x) for x in config.ARM_LIFT_POSITION]
+            ok, msg, idx = eh.check_joint_limits_deg(raise_deg)
+            if not ok:
+                eh.handle_out_of_range(self.arm, self.gripper, offending_index=idx, offending_value=raise_deg[idx])
+                return
+            
+            # 执行动作
+            self.arm.move_to(*raise_deg)
+            res = eh.check_timeout(expected_duration=2.0)
+            rospy.sleep(2.0)  # 耗时2.0s
+            if not eh.handle_action_result(self.arm, self.gripper, res, "arm raise"):
+                return
+            self.print_status(3, "机械臂抬升",2.0)
+
+            # 步骤4：爪部松开 
+            rospy.loginfo("步骤4：爪部松开，开始执行...")
+            self.gripper.set_angle(0)
+            res = eh.check_timeout(expected_duration=0.5)
+            rospy.sleep(0.5)  # 耗时0.5s
+            if not eh.handle_action_result(self.arm, self.gripper, res, "gripper open"):
+                return
+            self.print_status(4, "爪部松开",0.5)
+
+            # 步骤5：复位 
+            rospy.loginfo("步骤5：机械臂复位，开始执行...")
+            
+            # 执行动作
+            self.arm.reset()
+            res = eh.check_timeout(expected_duration=2.0)
+            rospy.sleep(2.0)  # 耗时2.0s
+            if not eh.handle_action_result(self.arm, self.gripper, res, "arm reset"):
+                return
+            self.print_status(5, "机械臂复位",2.0)
 
 
     # 主流程

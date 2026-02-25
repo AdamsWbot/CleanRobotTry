@@ -49,60 +49,55 @@ def handle_out_of_range(arm, gripper, offending_index=None, offending_value=None
     rospy.logerr("已执行复位，任务应终止或人工干预。")
     return False  # 表示任务需终止/失败
 
-# 执行代码，并判断是否成功，是否超时
-def perform_action_with_timeout(action_fn, args=None, expected_duration=0.0):
+# 检查动作是否超时
+def check_timeout(expected_duration):
     """
-    返回：
-        'ok'      -> 执行成功并在允许时长内等待完成
-        'failed'  -> action_fn 返回 False（调用失败）
-        'timeout' -> expected_duration > config.ACTION_TIMEOUT（视为超时，应跳过）
+    返回:
+        'ok' 或 'timeout'
     """
-    if args is None:
-        args = ()
-    try:
-        ok = action_fn(*args)
-    except Exception as e:
-        rospy.logerr("执行动作时抛异常: %s", e)
-        return "failed"
+    if expected_duration is None or expected_duration <= 0:
+        return "ok"
 
-    if not ok:
-        rospy.logerr("动作函数返回失败 (False)")
-        return "failed"
-
-    # 如果预期时长超过最大时长 -> 视为超时并跳过
-    if expected_duration is not None and expected_duration > config.ACTION_TIMEOUT:
-        rospy.logwarn(
-            "预期动作时长 %.2fs 超过超时阈值 %.2fs，标记为 timeout 并跳过。",
-            expected_duration, config.ACTION_TIMEOUT
-        )
+    timeout_threshold = getattr(config, "ACTION_TIMEOUT", 3.0)
+    if expected_duration > timeout_threshold:
+        rospy.logwarn("预期动作时长 %.2fs 超过超时阈值 %.2fs，标记为 timeout 并跳过。",
+                      expected_duration, timeout_threshold)
         return "timeout"
 
-    if expected_duration and expected_duration > 0:
-        start = time.time()
-        rospy.sleep(expected_duration)
-        elapsed = time.time() - start
+    start = time.time()
+    rospy.sleep(expected_duration)
+    elapsed = time.time() - start
+    rospy.logdebug("等待完成：预期 %.2fs，实际 %.3fs", expected_duration, elapsed)
     return "ok"
 
 
-# 根据 perform_action_with_timeout 的结果采取处理
-def handle_action_result(arm, gripper, result_type, info=None):
+def handle_action_result(arm, gripper, action_success, wait_result, info=None):
     """
-    - 'ok' -> 返回 True，继续下一个步骤
-    - 'timeout' -> 打印警告，返回 True（跳过当前动作，继续后续动作）
-    - 'failed' -> 记录并复位, 返回 False
+    根据动作执行结果(action_success: bool)与等待结果(wait_result: 'ok'|'timeout')采取处理。
+    - action_success == False : 严重失败 -> 复位爪/臂，返回 False（终止任务）
+    - action_success == True and wait_result == 'timeout' : 超时 -> 打警告，返回 True（跳过当前动作，继续）
+    - 否则返回 True（正常）
     """
-    if result_type == "ok":
-        return True
-    elif result_type == "timeout":
-        rospy.logwarn("动作超时，跳过该动作: %s", str(info))
-        return True  # 跳过，继续后续动作
-    else:  # failed
-        rospy.logerr("动作执行失败，执行安全处理: %s", str(info))
-        # 尝试复位
+    if not action_success:
+        rospy.logerr("动作执行失败: %s", str(info))
+        # 尝试安全复位
         try:
             arm.reset()
-            gripper.set_angle(math.degrees(config.GRIPPER_MIN_ANGLE))
+            open_rad = getattr(config, "GRIPPER_OPEN_ANGLE", None)
+            if open_rad is not None:
+                open_deg = math.degrees(open_rad)
+            else:
+                open_deg = math.degrees(getattr(config, "GRIPPER_MIN_ANGLE", 0.0))
+            gripper.set_angle(open_deg)
         except Exception as e:
             rospy.logerr("失败处理时异常: %s", e)
-        rospy.sleep(2.0)  # 等待复位完成
+        rospy.sleep(getattr(config, "RESET_DURATION", 1.0))
         return False
+
+    # 如果动作成功，但等待结果为 timeout -> 跳过该动作继续
+    if wait_result == "timeout":
+        rospy.logwarn("动作等待超时，跳过该动作: %s", str(info))
+        return True
+
+    # 正常完成
+    return True
