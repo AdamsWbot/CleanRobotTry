@@ -1,4 +1,11 @@
 <launch>
-   
-    <node name="keyboard_control" pkg="clean_robot" type="keyboard_control.py" output="screen" />
+    <node pkg="clean_robot"
+          type="gripper_server.py"
+          name="gripper_server"
+          output="screen" />
+
+    <node pkg="clean_robot"
+          type="restaurant_arm_pour.py"
+          name="restaurant_arm_pour"
+          output="screen" />
 </launch>
