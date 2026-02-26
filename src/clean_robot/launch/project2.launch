@@ -1,8 +1,5 @@
 <launch>
-    <!-- Project 2: 柔性机械爪控制 -->
-    <!-- 启动服务端 -->
+   
     <node name="gripper_server" pkg="clean_robot" type="gripper_server.py" output="screen" />
-
-    <!-- 启动客户端 -->
     <node name="gripper_client" pkg="clean_robot" type="gripper_client.py" output="screen" />
 </launch>
