@@ -1,0 +1,4 @@
+<launch>
+   
+    <node name="keyboard_control" pkg="clean_robot" type="keyboard_control.py" output="screen" />
+</launch>
