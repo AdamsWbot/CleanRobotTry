@@ -1,11 +1,4 @@
 <launch>
-    <!-- 是否执行餐余垃圾阶段 -->
-    <arg name="run_food_waste" default="true"/>
-    <!-- 是否执行餐具清理阶段 -->
-    <arg name="run_tableware_clean" default="true"/>
-
-    <param name="RUN_FOOD_WASTE" value="$(arg run_food_waste)" />
-    <param name="RUN_TABLEWARE_CLEAN" value="$(arg run_tableware_clean)" />
 
     <node pkg="clean_robot"
           type="gripper_server.py"
