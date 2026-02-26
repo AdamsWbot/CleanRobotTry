@@ -181,6 +181,7 @@ class TaskSequence:
             if not eh.handle_action_result(self.arm, self.gripper, res, "arm reset"):
                 return
             self.print_status(5, "机械臂复位",2.0)
+            rospy.loginfo("餐厅3D清洁任务完成，所有动作执行结束")
 
 
     # 主流程
@@ -195,7 +196,6 @@ class TaskSequence:
         self.arm.reset()
         self.gripper.set_angle(0)
 
-        rospy.loginfo("餐厅3D清洁任务完成，所有动作执行结束")
 
 
 if __name__ == "__main__":
