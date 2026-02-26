@@ -19,3 +19,14 @@ reset|复位所有关节到 0°
 可通过修改config.py文件中项目4部分的参数来单独调用或不调用某个部分，并能控制调用次数,如：  
 RUN_FOOD_WASTE = False    即不执行餐余垃圾清理  
 TABLEWARE_COUNT = 3    即餐具清理执行3次
+
+
+## 一键启动所有节点
+
+我们提供了一个主启动文件 `start_all.launch`，可以一键启动所有项目节点（项目1、项目4等），方便调试和演示。
+
+### 使用方法：
+
+```bash
+# 启动所有节点
+roslaunch clean_robot start_all.launch
