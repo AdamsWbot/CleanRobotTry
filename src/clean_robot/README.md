@@ -21,7 +21,7 @@
 
 .  确保已编译并激活环境。
 .  打开终端，运行：
-    ```bash
+    ```
     roslaunch [clean_robt] project1.launch
     ```
     >
@@ -83,22 +83,22 @@ reset|复位所有关节到 0°
 ### 功能说明
 - **核心功能**：实现机械臂末端执行器（夹爪）的开合控制，并反馈当前抓取状态。
 - **通信机制**：
-话题 (Topic) - 发布：/gripper_state（用于订阅夹爪开合状态）。
-话题 (Topic) - 订阅：/gripper_cmd（用于接收“打开/关闭”指令）。
+*   话题 (Topic) - 发布：/gripper_state（用于订阅夹爪开合状态）。
+*   话题 (Topic) - 订阅：/gripper_cmd（用于接收“打开/关闭”指令）。
 消息类型 (Msg)：std_msgs/String。
 - **控制逻辑**：
-接收到 "open" 指令时，夹爪张开。
-接收到 "close" 指令时，夹爪闭合。
-状态变化后，向 /gripper_state 发布当前状态。
+*   接收到 "open" 指令时，夹爪张开。
+*   接收到 "close" 指令时，夹爪闭合。
+*   状态变化后，向 /gripper_state 发布当前状态。
 - **模块文件**:
-gripper_client.py：客户端脚本，用于发送抓取指令。
-gripper_server.py：服务端脚本，监听指令并控制夹爪逻辑。
-project4.launch：ROS 启动文件，用于同时启动服务端和客户端节点。
+*   gripper_client.py：客户端脚本，用于发送抓取指令。
+*   gripper_server.py：服务端脚本，监听指令并控制夹爪逻辑。
+*   project4.launch：ROS 启动文件，用于同时启动服务端和客户端节点。
 - **运行步骤**:
 
-确保工作空间已编译（catkin_make）并激活环境（source devel/setup.bash）。
-打开终端，运行以下命令启动项目：
- ```bash
+*   确保工作空间已编译（catkin_make）并激活环境（source devel/setup.bash）。
+*   打开终端，运行以下命令启动项目：
+ ```
     roslaunch clean_robot project4.launch
     ```
     >
