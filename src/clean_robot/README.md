@@ -96,8 +96,8 @@ reset|复位所有关节到 0°
 *   project4.launch：ROS 启动文件，用于同时启动服务端和客户端节点。
 - **运行步骤**:
 
-*   确保工作空间已编译（catkin_make）并激活环境（source devel/setup.bash）。
-*   打开终端，运行以下命令启动项目：
+1.  确保工作空间已编译（catkin_make）并激活环境（source devel/setup.bash）。
+2.  打开终端，运行以下命令启动项目：
  ```
     roslaunch clean_robot project4.launch
     ```
