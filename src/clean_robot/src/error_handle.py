@@ -30,11 +30,10 @@ def check_joint_limits_deg(deg_list):
 
 def handle_out_of_range(arm, gripper, offending_index=None, offending_value=None):
     """
-    处理角度越界：打印信息、复位机械臂、打开爪子（安全），并记录日志。
-    该操作视为严重错误，通常调用后应该终止任务。
+    处理角度越界：打印信息、复位机械臂、打开爪子，并记录日志。
     """
     rospy.logerr("检测到角度越界! index=%s value=%s", str(offending_index), str(offending_value))
-    rospy.loginfo("执行安全复位：机械臂回到 HOME，爪部打开。")
+    rospy.loginfo("执行安全复位：机械臂回到初始位置，爪部打开。")
     try:
         arm.reset()
     except Exception as e:
@@ -46,7 +45,7 @@ def handle_out_of_range(arm, gripper, offending_index=None, offending_value=None
         rospy.logerr("设置爪部角度失败: %s", e)
 
     rospy.sleep(getattr(config, "RESET_DURATION", 1.0))
-    rospy.logerr("已执行复位，任务应终止或人工干预。")
+    rospy.logerr("已执行复位，任务终止。")
     return False  # 表示任务需终止/失败
 
 # 检查动作是否超时

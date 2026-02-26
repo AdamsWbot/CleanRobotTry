@@ -65,8 +65,6 @@ POUR_TILT_POSITION = [
 ]
 POUR_TILT_DURATION = 1.0
 
-#复位时间
-RESET_DURATION = 2.0
 
 # 项目4
 

@@ -1,4 +1,5 @@
 *本功能输入与输出统一使用角度制*
+*本功能所有项目可通过roslaunch clean_robot project(1/2/3/4)一键启动*
 # 机器人清洁挑战赛微缩考核
 开发环境：Ubuntu20.04 + ROS-Noetic
 ## 项目1
